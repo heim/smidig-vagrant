@@ -11,7 +11,7 @@ Vagrant::Config.run do |config|
     ci_config.vm.forward_port("db", 3306, 3306)
     
     ci_config.vm.provision :puppet do |puppet|
-     puppet.manifests_path = "puppet"
+     puppet.manifests_path = "puppet/manifests"
      puppet.manifest_file  = "ci.pp"
      puppet.module_path = "puppet/modules"
      puppet.options = "--trace --debug"
@@ -21,7 +21,7 @@ Vagrant::Config.run do |config|
   config.vm.define :web do |web_config|
     web_config.vm.box = "oneiric32"
     web_config.vm.provision :puppet do |puppet|
-     puppet.manifests_path = "puppet"
+     puppet.manifests_path = "puppet/manifests"
      puppet.manifest_file  = "web.pp"
      puppet.module_path = "puppet/modules"
      puppet.options = "--trace --debug"
