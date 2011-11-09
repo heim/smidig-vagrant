@@ -8,23 +8,28 @@ Vagrant::Config.run do |config|
     ci_config.vm.box = "oneiric32"
     ci_config.vm.forward_port "jenkins", 8080, 8080
     ci_config.vm.forward_port "nexus", 8081, 8081
+    ci_config.vm.forward_port "ssh", 22, 2222
     ci_config.vm.forward_port("db", 3306, 3306)
+    
+    
     
     ci_config.vm.provision :puppet do |puppet|
      puppet.manifests_path = "puppet/manifests"
      puppet.manifest_file  = "ci.pp"
      puppet.module_path = "puppet/modules"
-     puppet.options = "--trace --debug"
+     #puppet.options = "--trace --debug"
     end
   end
 
   config.vm.define :web do |web_config|
     web_config.vm.box = "oneiric32"
+    web_config.vm.forward_port "ssh", 22, 2200
+    
     web_config.vm.provision :puppet do |puppet|
      puppet.manifests_path = "puppet/manifests"
      puppet.manifest_file  = "web.pp"
      puppet.module_path = "puppet/modules"
-     puppet.options = "--trace --debug"
+     #puppet.options = "--trace --debug"
     end
   end
 
